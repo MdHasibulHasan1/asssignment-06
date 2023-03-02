@@ -26,7 +26,10 @@ const displayToolsDetails=(data)=>{
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h5>${name}</h5>
-                        <h6>${new Date()}</h6>
+                        <div class="d-flex gap-2">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <h6>${new Date().toLocaleDateString("en-US")}</h6>
+                        </div>
                     </div>
                     <div>
                         <i onclick="loadToolDetails('${id}')" class="fa-solid fa-arrow-right" data-bs-toggle="modal" data-bs-target="#toolDetailsModal"></i>
