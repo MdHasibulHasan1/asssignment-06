@@ -47,28 +47,60 @@ const loadToolDetails=async(id)=>{
     displayDetailsInModel(data.data);
 }
 const displayDetailsInModel=(singledetails)=>{
-    console.log(singledetails);
+    console.log(singledetails.features);
     
-    const {description, image_link}=singledetails;
+    const {description, image_link, pricing, input_output_examples, features, integrations}=singledetails;
     
     const toolDetails=document.getElementById('tool-details');
-    toolDetails.innerHTML = `
+    toolDetails.innerHTML='';
+    toolDetails.innerHTML += `
     <div class="col">
-        <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">${description}</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
+        <div class="card bg-danger bg-danger-subtle border border-warning rounded">
+            <div class="card-body">
+                <h5 class="card-title">${description}</h5>
+                <div class="d-flex gap-4 justify-content-between">
+                    <div class="text-success">
+                        <div class="fs-6">${pricing[0].price}</div>
+                        <div class="fs-6">${pricing[0].plan}</div>
+                    </div>
+                    <div class="text-warning">
+                        <div class="fs-6">${pricing[1].price}</div>
+                        <div class="fs-6">${pricing[1].plan}</div>
+                    </div>
+                    <div class="text-danger bg-white rounded">
+                        <div class="fs-6">${pricing[2].price}</div>
+                        <div class="fs-6">${pricing[2].plan}</div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-4 justify-content-between">
+
+                    <div class="text-success">
+                        <h5 class="card-title">Features</h5>
+                        <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        </ul>
+                    </div>
+                    <div class="text-warning">
+                        <h5 class="card-title">Integrations</h5>
+                        <div class="fs-6">${pricing[1].price}</div>
+                        <div class="fs-6">${pricing[1].plan}</div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
     <div class="col">
         <div class="card">
-        <img src="${image_link[0]}" class="card-img-top" alt="...">
+        <img src="${image_link[0] ? image_link[0] : "image not available"}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <h5 class="card-title">${input_output_examples[0].input ? input_output_examples[0].input : "Can you give any example?"}</h5>
+        <p class="card-title">${input_output_examples[0].output ? input_output_examples[0].output : "No! Not Yet! Take a break!!!"}</p>
         </div>
         </div>
     </div>
-    `
+    `;
 }

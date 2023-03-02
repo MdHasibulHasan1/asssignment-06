@@ -15,14 +15,22 @@
         <button type="button" class="btn btn-danger d-block mx-auto">Sort By Date</button>
     </header>
     <main>
+        <!-- loader -->
+        <section id="loader" class="d-none">
+            <div style="height: 400px;" class="d-flex justify-content-center align-items-center">
+                <div class="spinner-border  text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </section>
         <section  class="">
             <div id="tools-card-container" class="row row-cols-1 row-cols-md-3 g-4">
                 
                 
-                
+            </div>  
             <!-- Modal -->
             <div id="details-modal">
-                <div class="modal fade" id="toolDetailsModal" tabindex="-1" aria-labelledby="toolDetailsModalLabel"
+                <div class="modal fade modal-lg" id="toolDetailsModal" tabindex="-1" aria-labelledby="toolDetailsModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -34,6 +42,7 @@
                             <div id="tool-details" class="row row-cols-1 row-cols-md-2 g-4">
                                 
                                 
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -41,6 +50,9 @@
                     </div>
                 </div>
             </div>
+        </section>
+        <section>
+            
         </section>
     </main>
     <script src="./js/index.js"></script>
