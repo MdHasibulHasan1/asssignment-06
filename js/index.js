@@ -55,6 +55,7 @@ const displayToolsDetails=(tools)=>{
                     <li>${features[0] ? features[0] : 'Not available'}</li>
                     <li>${features[1] ? features[1] : 'Not available'}</li>
                     <li>${features[2] ? features[2] : 'Not available'}</li>
+                    <li>${features[3] ? features[3] : 'Not available'}</li>
                 </ol>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center">
@@ -89,33 +90,34 @@ const displayDetailsInModel=(singleDetails)=>{
     // console.log(singleDetails.image_link);
     
     const {description, input_output_examples, image_link, pricing, features, integrations, accuracy}=singleDetails;
-   console.log(pricing? pricing[0].price : "Free of Cost/");
+   
     let allFeatures= [];
     for (const key in features) {
         if (features.hasOwnProperty.call(features, key)) {
             const feature = singleDetails.features[key];
-            console.log(feature.feature_name);
+            // console.log(feature.feature_name);
             allFeatures.push(feature?.feature_name);
-            console.log(singleDetails?.pricing);
+            // console.log(allFeatures);
+
             const toolDetails=document.getElementById('tool-details');
     toolDetails.innerHTML='';
     toolDetails.innerHTML += `
 
     <div class="col">
-        <div class="card bg-danger bg-danger-subtle border border-warning rounded ">
+        <div class="card bg-danger bg-danger-subtle border border-danger rounded ">
            
             <div class="card-body">
             <h5 class="card-title">${description}</h5>
-                <div class="row row-cols-3 d-flex justify-content-between text-center">
-                    <div style="width: 32%" class="text-success col bg-white rounded ">
+                <div class="row row-cols-3 d-flex  justify-content-between text-center">
+                    <div style="width: 32%" class="text-success col bg-white rounded py-2 ">
                         <div class="fs-6">${pricing? pricing[0].price : "Free of Cost/"}</div>
                         <div class="fs-6">${pricing? pricing[0].plan : 'Basic'}</div>
                     </div>
-                    <div style="width: 32%" class="text-warning col bg-white rounded ">
+                    <div style="width: 32%" class="text-warning col bg-white rounded py-2 ">
                         <div class="fs-6">${pricing? pricing[1].price : "Free of Cost/"}</div>
                         <div class="fs-6">${pricing? pricing[1].plan : 'Pro'}</div>
                     </div>
-                    <div style="width: 32%" class="text-danger col bg-white rounded ">
+                    <div style="width: 32%" class="text-danger col bg-white rounded py-2 ">
                         <div class="fs-6">${pricing? pricing[2].price : "Free of Cost/"}</div>
                         <div class="fs-6">${pricing? pricing[2].plan : 'Enterprise'}</div>
                     </div>
@@ -125,17 +127,19 @@ const displayDetailsInModel=(singleDetails)=>{
                     <div class="text-bg-black ">
                         <h5 class="card-title fw-bold">Features</h5>
                         <ul>
-                            <li>${allFeatures[0]}</li>
-                            <li>${allFeatures[1]}</li>
-                            <li>${allFeatures[2]}</li>
+                            <li>${allFeatures[0]? allFeatures[0] : ""}</li>
+                            <li>${allFeatures[1]? allFeatures[1] : ""}</li>
+                            <li>${allFeatures[2]? allFeatures[2] : ""}</li>
+                            <li>${allFeatures[3]? allFeatures[3] : ""}</li>
                         </ul>
                     </div>
                     <div class="">
                         <h5 class="card-title fw-bold">Integrations</h5>
                         <ul>
-                            <li>${integrations? integrations[0] : "No data Found"}</li>
-                            <li>${integrations? integrations[1] : ""}</li>
-                            <li>${integrations? integrations[2] : ""}</li>
+                            <p>${integrations? '' : "No data Found"}</p>
+                            <li>${integrations && integrations[0]? integrations[0] : ""}</li>
+                            <li>${integrations && integrations[1]? integrations[1] : ""}</li>
+                            <li>${integrations && integrations[2]? integrations[2] : ""}</li>
                         </ul>
                     </div>
                 </div>
