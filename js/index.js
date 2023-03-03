@@ -3,12 +3,12 @@ let currentData;
 let loadedData;
 
 const toggleSpinner = isLoading => {
-    const loaderSection = document.getElementById('loader-section');
+    const spinnerSection = document.getElementById('spinner-section');
     if(isLoading){
-        loaderSection.classList.remove('d-none');
+        spinnerSection.classList.remove('d-none');
     }
     else{
-        loaderSection.classList.add('d-none');
+        spinnerSection.classList.add('d-none');
     } 
 }
 
@@ -37,7 +37,7 @@ const displayToolsDetails=(tools)=>{
     console.log(tools[2].published_in);
     // display 6 cards
     const seeMoreSection = document.getElementById('see-more-section');
-    /* const loaderSection=document.getElementById('loader-section"'); */
+    
     if(tools.length > 6) {
         seeMoreSection.classList.add('d-none');
         currentData=[...tools];
@@ -180,10 +180,22 @@ const displayDetailsInModel=(singleDetails)=>{
 
 
 
+const sortByDate=()=>{
+    document.getElementById('tools-card-container').innerHTML='';
+    
+//    loadedData=loadedData.slice(0, 6);
+    currentData.sort((x, y) => {
+        x = new Date(x.published_in),
+         y = new Date(y.published_in);
+         
+       return x - y;
+    });
+    displayToolsDetails(currentData);
+    console.log(loadedData);
+}
 
 
 
 
 
 
-fetchToolsData();
