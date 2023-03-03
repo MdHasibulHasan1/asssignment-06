@@ -1,5 +1,6 @@
+// declare global variable to sort card
 let currentData;
-
+// declare global variable to store the data of fetchToolsData function
 let loadedData;
 
 const toggleSpinner = isLoading => {
@@ -11,44 +12,32 @@ const toggleSpinner = isLoading => {
         spinnerSection.classList.add('d-none');
     } 
 }
-
-
+// fetch tools data
 const fetchToolsData = async() =>{
     toggleSpinner(true);
     const url = `https://openapi.programming-hero.com/api/ai/tools`
     const res = await fetch(url);
     const data = await res.json();
     loadedData = [...data.data.tools];
-    
     displayToolsDetails(data.data.tools.slice(0, 6));
-    
 }
-
 // See More section
 const seeMoreCard=async()=>{
     document.getElementById('tools-card-container').innerHTML='';
     displayToolsDetails(loadedData);
 }
-
-
-
+// display Tools Details 
 const displayToolsDetails=(tools)=>{
-    
     console.log(tools[2].published_in);
     // display 6 cards
     const seeMoreSection = document.getElementById('see-more-section');
-    
     if(tools.length > 6) {
         seeMoreSection.classList.add('d-none');
         currentData=[...tools];
-        /* const sortButton = document.getElementById('sort-button').addEventListener('click', function(){
-            sortByDate(tools);
-        }) */
     }
     else{
         seeMoreSection.classList.remove('d-none');
         currentData=[...tools];
-        
     }
     
     const toolsCard = document.getElementById('tools-card-container');
@@ -88,16 +77,16 @@ const displayToolsDetails=(tools)=>{
     toggleSpinner(false);
 }
 
-
+// fetch tools details to set in the modal
 const loadToolDetails=async(id)=>{
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
     const res = await fetch(url);
     const data = await res.json();
     displayDetailsInModel(data.data);
 }
+// Display data in the modal
 const displayDetailsInModel=(singleDetails)=>{
     console.log(singleDetails.pricing);
-    
     
     const {description, image_link, pricing, input_output_examples, features, integrations, accuracy}=singleDetails;
     let allFeatures= [];
@@ -168,26 +157,14 @@ const displayDetailsInModel=(singleDetails)=>{
 
         }
     }
-    
-
-
-
- 
-
 }
 
-
-
-
-
+// sort card by date
 const sortByDate=()=>{
     document.getElementById('tools-card-container').innerHTML='';
-    
-//    loadedData=loadedData.slice(0, 6);
     currentData.sort((x, y) => {
         x = new Date(x.published_in),
          y = new Date(y.published_in);
-         
        return x - y;
     });
     displayToolsDetails(currentData);
