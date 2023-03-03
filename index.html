@@ -12,11 +12,11 @@
 <body onload="loadToolsData()" class="container">
     <header>
         <h1 class="text-center">AI Universe Hub</h1>
-        <button type="button" class="btn btn-danger d-block mx-auto">Sort By Date</button>
+        <button type="button" class="btn btn-danger d-block mx-auto mb-3">Sort By Date</button>
     </header>
     <main>
         <!-- loader -->
-        <section id="loader" class="d-none">
+        <section id="loader-section" class="d-none">
             <div style="height: 400px;" class="d-flex justify-content-center align-items-center">
                 <div class="spinner-border  text-success" role="status">
                     <span class="visually-hidden">Loading...</span>
@@ -51,8 +51,9 @@
                 </div>
             </div>
         </section>
-        <section>
-            
+        <!-- show all button section -->
+        <section id="show-all-section">
+            <button onclick="showAllCard()" id="see-more-btn" type="button" class="btn btn-danger d-block mx-auto mb-3">See More</button>
         </section>
     </main>
     <script src="./js/index.js"></script>

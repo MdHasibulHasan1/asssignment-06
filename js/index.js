@@ -1,14 +1,50 @@
+let loadedToolsData=[];
 const loadToolsData = async() =>{
     const url = `https://openapi.programming-hero.com/api/ai/tools`
     const res = await fetch(url);
     const data = await res.json();
-    displayToolsDetails(data.data);
+    // loadToolsData=data.data.tools;
+    displayToolsDetails(data.data.tools.slice(0, 6));
 }
-
-const displayToolsDetails=(data)=>{
-    // console.log(data.tools);
+//   ?????????????????????????????????????
+const showAllCard=async()=>{
+    const url = `https://openapi.programming-hero.com/api/ai/tools`
+    const res = await fetch(url);
+    const data = await res.json();
+    document.getElementById('tools-card-container').innerHTML='';
+    // loadToolsData=data.data.tools;
+    displayToolsDetails(data.data.tools);
+    displayToolsDetails(loadToolDetails);
+}
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader-section');
+    if(isLoading){
+        loaderSection.classList.remove('d-none');
+    }
+    else{
+        loaderSection.classList.add('d-none');
+    } 
+}
+const displayToolsDetails=(tools)=>{
+    toggleSpinner(true);
+    console.log(tools);
+    // display 6 cards
+    // const loaderSection = document.getElementById('loader-section');
+    const showAllSection = document.getElementById('show-all-section');
+    // const loaderSection=document.getElementById('loader-section"');
+    if(6<=tools.length) {
+        // tools = tools.slice(0, 6);
+        // loaderSection.classList.remove('d-none');
+        showAllSection.classList.remove('d-none');
+        
+    }
+    else{
+        showAllSection.classList.add('d-none');
+        // loaderSection.classList.add('d-none');
+        
+    }
     const toolsCard = document.getElementById('tools-card-container');
-    data.tools.forEach(singleTool => {
+    tools.forEach(singleTool => {
         const {image, features, name, id}=singleTool;
         // console.log(singleTool);
         toolsCard.innerHTML+=`
@@ -40,6 +76,7 @@ const displayToolsDetails=(data)=>{
         </div>
         `;
     });
+    toggleSpinner(false);
 }
 
 
@@ -61,16 +98,16 @@ const displayDetailsInModel=(singledetails)=>{
         <div class="card bg-danger bg-danger-subtle border border-warning rounded">
             <div class="card-body">
                 <h5 class="card-title">${description}</h5>
-                <div class="d-flex gap-4 justify-content-between">
-                    <div class="text-success">
+                <div class="d-flex gap-2 text-center justify-content-between">
+                    <div class="text-success bg-white rounded p-2">
                         <div class="fs-6">${pricing[0].price}</div>
                         <div class="fs-6">${pricing[0].plan}</div>
                     </div>
-                    <div class="text-warning">
+                    <div class="text-warning bg-white rounded p-2">
                         <div class="fs-6">${pricing[1].price}</div>
                         <div class="fs-6">${pricing[1].plan}</div>
                     </div>
-                    <div class="text-danger bg-white rounded">
+                    <div class="text-danger bg-white rounded p-2">
                         <div class="fs-6">${pricing[2].price}</div>
                         <div class="fs-6">${pricing[2].plan}</div>
                     </div>
@@ -78,7 +115,7 @@ const displayDetailsInModel=(singledetails)=>{
 
                 <div class="d-flex gap-4 justify-content-between">
 
-                    <div class="text-success">
+                    <div class="">
                         <h5 class="card-title">Features</h5>
                         <ul>
                         <li></li>
@@ -106,4 +143,10 @@ const displayDetailsInModel=(singledetails)=>{
         </div>
     </div>
     `;
+
+
+
+
+ 
+
 }
