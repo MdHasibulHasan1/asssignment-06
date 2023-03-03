@@ -2,14 +2,15 @@ let currentData;
 
 let loadedData;
 
-
-
-
-
-
-
-
-
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader-section');
+    if(isLoading){
+        loaderSection.classList.remove('d-none');
+    }
+    else{
+        loaderSection.classList.add('d-none');
+    } 
+}
 
 
 const fetchToolsData = async() =>{
