@@ -2,7 +2,7 @@
 let currentData;
 // declare global variable to store the data of fetchToolsData function
 let loadedData;
-
+// function for control spinner
 const toggleSpinner = isLoading => {
     const spinnerSection = document.getElementById('spinner-section');
     if(isLoading){
@@ -51,11 +51,11 @@ const displayToolsDetails=(tools)=>{
             <img src="${image ? image : "Not found"}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Features</h5>
-                <ol type="1">
-                    <li>${features[0] ? features[0] : 'Not available'}</li>
-                    <li>${features[1] ? features[1] : 'Not available'}</li>
-                    <li>${features[2] ? features[2] : 'Not available'}</li>
-                    <li>${features[3] ? features[3] : 'Not available'}</li>
+                <ol class="list-unstyled">
+                    <li>${features[0] ? '1. '+ features[0] : ''}</li>
+                    <li>${features[1] ? '2. '+ features[1] : ''}</li>
+                    <li>${features[2] ? '3. '+ features[2] : ''}</li>
+                    <li>${features[3] ? '4. '+ features[3] : ''}</li>
                 </ol>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center">
@@ -83,7 +83,7 @@ const loadToolDetails=async(id)=>{
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
     const res = await fetch(url);
     const data = await res.json();
-    displayDetailsInModel(data?.data);
+    displayDetailsInModel(data.data);
 }
 // Display data in the modal
 const displayDetailsInModel=(singleDetails)=>{
@@ -123,27 +123,21 @@ const displayDetailsInModel=(singleDetails)=>{
                     </div>
                 </div>
                 
-                <div class="d-flex gap-4 justify-content-between">
+                <div class="d-flex mt-4 gap-4 justify-content-between">
                     <div class="text-bg-black ">
                         <h5 class="card-title fw-bold">Features</h5>
-                        <ul>
-                            <li>${allFeatures[0]? allFeatures[0] : ""}</li>
-                            <li>${allFeatures[1]? allFeatures[1] : ""}</li>
-                            <li>${allFeatures[2]? allFeatures[2] : ""}</li>
-                            <li>${allFeatures[3]? allFeatures[3] : ""}</li>
+                        <ul id="all-features-container">
+                            
                         </ul>
                     </div>
                     <div class="">
                         <h5 class="card-title fw-bold">Integrations</h5>
-                        <ul>
-                            <p>${integrations? '' : "No data Found"}</p>
-                            <li>${integrations && integrations[0]? integrations[0] : ""}</li>
-                            <li>${integrations && integrations[1]? integrations[1] : ""}</li>
-                            <li>${integrations && integrations[2]? integrations[2] : ""}</li>
+                        <ul id="integrations-container" >
+                            <p style="margin-left: -30px;">${integrations? '' : "No data Found"}</p>
+                            
                         </ul>
                     </div>
                 </div>
-                
             </div>
         </div>
   </div>
@@ -159,10 +153,21 @@ const displayDetailsInModel=(singleDetails)=>{
             </div>
         </div>
   </div>
-  
-
-    
     `;
+    // set data in the all-features-container
+    const allFeaturesContainer = document.getElementById('all-features-container');
+        for (const feature of allFeatures) {
+            const li = document.createElement('li');
+            li.innerHTML= feature;  
+            allFeaturesContainer.appendChild(li);
+        }
+    // set data in the integrations-container
+    const integrationsContainer = document.getElementById('integrations-container');
+        for (const integration of integrations? integrations : []) {
+            const li = document.createElement('li');
+            li.innerHTML= integration;  
+            integrationsContainer.appendChild(li);
+        }
 
         }
     }
@@ -174,7 +179,7 @@ const sortByDate=()=>{
     currentData.sort((x, y) => {
         x = new Date(x.published_in),
          y = new Date(y.published_in);
-       return x - y;
+       return y - x;
     });
     displayToolsDetails(currentData);
     console.log(loadedData);
